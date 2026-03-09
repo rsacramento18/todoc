@@ -28,6 +28,12 @@ int main() {
   }
   print_todo_list(todoArr);
 
+  mark_todo_done(todoArr, todoArr->size-1);
+  print_todo_list(todoArr);
+
+  mark_todo_deleted(todoArr, todoArr->size-1);
+  print_todo_list(todoArr);
+
   free_todos(todoArr);
 
   return 0;
