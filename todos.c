@@ -10,7 +10,7 @@
 #define BOOL (a ? "true" : "false")
 
 int read_todos(const char *filename, Todos *todoArr) {
-  FILE *fp = fopen("todos.txt", "r");
+  FILE *fp = fopen(filename, "r");
   u8 capacity = INITIAL_CAPACITY;
   u8 size = 0;
   Todo *arr = malloc(capacity * sizeof(Todo));
@@ -90,8 +90,24 @@ int add_todo(Todos *todoArr, Todo todo) {
   return 0;
 }
 
+int save_todos(const char *filename, Todos *todoArr) {
+  FILE *fp = fopen(filename, "w");
+
+  if (fp == NULL)
+    return -1;
+
+  for (int i = 0; i < todoArr->size; i++) {
+
+    Todo todoTmp = todoArr->todos[i];
+
+    fprintf(fp, "%s;%d;%d;%d;%d;%d\n", todoTmp.todo, todoTmp.day, todoTmp.month,
+            todoTmp.year, todoTmp.isDone, todoTmp.isDeleted);
+  }
+  return 0;
+}
+
 int mark_todo_done(Todos *todoArr, i16 index) {
-  if(index > todoArr->size) {
+  if (index > todoArr->size) {
     return -1;
   }
   todoArr->todos[index].isDone = true;
@@ -99,20 +115,23 @@ int mark_todo_done(Todos *todoArr, i16 index) {
 }
 
 int mark_todo_deleted(Todos *todoArr, i16 index) {
-  if(index > todoArr->size) {
+  if (index > todoArr->size) {
     return -1;
   }
   todoArr->todos[index].isDeleted = true;
   return 0;
 }
 
-void print_todo_list(Todos *todoArr) {
+void print_todo_list(Todos *todoArr, bool numered) {
 
   printf("=================\n");
   for (int i = 0; i < todoArr->size; i++) {
     Todo todo = todoArr->todos[i];
     if (todo.isDeleted)
       continue;
+    if(numered) {
+      printf("%d - ", i);
+    } 
     printf("Todo: %s - %d-%d-%d - done: %d\n", todo.todo, todo.day, todo.month,
            todo.year, todo.isDone);
   }

@@ -38,7 +38,7 @@ int add_todo(Todos* todoArr, Todo todo);
 int save_todos(const char* filename, Todos* todoArr);
 int mark_todo_done(Todos* todoArr, i16 index);
 int mark_todo_deleted(Todos* todoArr, i16 index);
-void print_todo_list(Todos* todoArr);
+void print_todo_list(Todos* todoArr, bool numbered);
 void free_todos(Todos* todoArr);
 
 
