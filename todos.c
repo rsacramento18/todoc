@@ -125,6 +125,7 @@ int mark_todo_deleted(Todos *todoArr, i16 index) {
 void print_todo_list(Todos *todoArr, bool numered) {
 
   printf("=================\n");
+  printf("=== ALL LISTS ===\n");
   for (int i = 0; i < todoArr->size; i++) {
     Todo todo = todoArr->todos[i];
     if (todo.isDeleted)
@@ -135,6 +136,8 @@ void print_todo_list(Todos *todoArr, bool numered) {
     printf("Todo: %s - %d-%d-%d - done: %d\n", todo.todo, todo.day, todo.month,
            todo.year, todo.isDone);
   }
+  printf("=================\n");
+  printf("=================\n");
 }
 
 void free_todos(Todos *todoArr) { free(todoArr); }
